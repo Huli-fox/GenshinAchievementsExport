@@ -1,0 +1,2 @@
+# GenshinAchievementOCR
+用于自动识别以及导出原神成就
