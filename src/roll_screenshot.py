@@ -54,12 +54,13 @@ def roll(area):
                         print('[Roll Screenshot]图片重复，停止滚动截图')
                         break
                 print('[Roll Screenshot] [%d]截图成功，保存至/%s' % (counter, path % counter))
-                for i in range(50):  # 测试1366x768分辨率下约滚动50次翻一页（指原神成就页）
+                time.sleep(1)
+                for i in range(40):  # 测试1366x768分辨率下约滚动50次翻一页（指原神成就页）
                     if not in_rolling:
                         break
                     controller.scroll(dx=0, dy=-3)  # 控制鼠标滚动
                     time.sleep(0.001)  # 通过sleep控制自动滚动速度
-
+                time.sleep(1)
             else:
                 break
 
