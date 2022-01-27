@@ -20,7 +20,7 @@ def write_txt():
         result = ocr.ocr(img_path, cls=True)
         for line in result:
             print(line)
-            with open('result.txt', 'a+', encoding='utf-8') as f:
+            with open('results.txt', 'a+', encoding='utf-8') as f:
                 f.write(line[1][0] + '\n')
 
 
@@ -34,36 +34,36 @@ def write_excel():
     findExData = re.compile(r'总计(.*?)\n')
 
     def check():
-        if counter >= sum(1 for _ in open('result.txt', encoding='utf-8')):
+        if counter >= sum(1 for _ in open('results.txt', encoding='utf-8')):
             return False
         else:
             return True
 
     while True:
-        name = linecache.getline('result.txt', counter).rstrip()
+        name = linecache.getline('results.txt', counter).rstrip()
         names.append(name)
-        is_complete = linecache.getline('result.txt', counter + 1).rstrip()
+        is_complete = linecache.getline('results.txt', counter + 1).rstrip()
         if is_complete == '达成':
             isCompletes.append(True)
-            progress = re.findall(findExData, linecache.getline('result.txt', counter + 2))
+            progress = re.findall(findExData, linecache.getline('results.txt', counter + 2))
             if progress:
                 progresses.append('总计%s' % progress[0])
-                contents.append(linecache.getline('result.txt', counter + 3).rstrip())
-                dates.append(linecache.getline('result.txt', counter + 4).rstrip())
+                contents.append(linecache.getline('results.txt', counter + 3).rstrip())
+                dates.append(linecache.getline('results.txt', counter + 4).rstrip())
                 counter += 5
                 if not check():
                     break
             else:
                 progresses.append('null')
-                contents.append(linecache.getline('result.txt', counter + 2).rstrip())
-                dates.append(linecache.getline('result.txt', counter + 3).rstrip())
+                contents.append(linecache.getline('results.txt', counter + 2).rstrip())
+                dates.append(linecache.getline('results.txt', counter + 3).rstrip())
                 counter += 4
                 if not check():
                     break
         else:
             isCompletes.append(False)
-            progresses.append(linecache.getline('result.txt', counter + 1).rstrip())
-            contents.append(linecache.getline('result.txt', counter + 2).rstrip())
+            progresses.append(linecache.getline('results.txt', counter + 1).rstrip())
+            contents.append(linecache.getline('results.txt', counter + 2).rstrip())
             dates.append('null')
             counter += 3
             if not check():
@@ -83,5 +83,5 @@ def write_excel():
         sheet1.write(a + 1, 4, progresses[a])
         sheet1.write(a + 1, 5, dates[a])
         a += 1
-    book.save('result.xlsx')
-    os.remove('result.txt')
+    book.save('results.xlsx')
+    # os.remove('results.txt')
